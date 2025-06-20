@@ -1,14 +1,14 @@
 //* URL base de la API
 const BASE_URL = "https://pokeapi.co/api/v2";
 
-//* Pokemones que se van a mostrar en pantalla
-const limit = 20;
+//* Cantidad de pokemones okemones que voy a mostrar
+const limitPokemon = 20;
 
 //* Elementos DOM
 const cardsContainer = document.getElementById("cardsContainer");
 const prevBtn = document.getElementById("prev");
 const nextBtn = document.getElementById("next");
-// const searchInput = document.getElementById("searchInput");
+// const searchInputBar = document.getElementById("searchInput");
 // const searchBtn = document.getElementById("searchBtn");
 
 //* variables para llevar el control de la paginación
@@ -18,10 +18,10 @@ let currentPage = 1;
 async function getCharacters(page = 1) {
   try {
     // solicitar los datos a la API usando el número de la página
-    const offset = (page - 1) * limit;
-    console.log(`${BASE_URL}/pokemon?offset=${offset}&limit=${limit}`);
+    const offset = (page - 1) * limitPokemon;
+    console.log(`${BASE_URL}/pokemon?offset=${offset}&limitPokemon=${limitPokemon}`);
     const response = await fetch(
-      `${BASE_URL}/pokemon?offset=${offset}&limit=${limit}`
+      `${BASE_URL}/pokemon?offset=${offset}&limitPokemon=${limitPokemon}`
     );
     // Error si no fue satisfactoria la respuesta
     if (!response.ok)
@@ -31,7 +31,7 @@ async function getCharacters(page = 1) {
     console.log(data.results);
 
     // Calcular de acuerdo a la cantidad de pokemones que hay
-    totalPages = Math.ceil(data.count / limit);
+    totalPages = Math.ceil(data.count / limitPokemon);
     console.log(totalPages);
     //Renderizar los personajes
     renderCharacters(data.results);
